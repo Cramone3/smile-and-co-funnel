@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
+    // Honeypot: real visitors never fill this hidden field, bots often do.
+    const honeypot = form.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value) return;
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
     status.className = 'form-status';
@@ -23,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (response.ok) {
         status.textContent = "Thanks! Redirecting you to book your assessment...";
         status.classList.add('success');
+        if (window.fbq) fbq('track', 'Lead');
+        if (window.gtag) gtag('event', 'generate_lead');
         form.reset();
         setTimeout(function () {
           window.location.href = 'booking.html';

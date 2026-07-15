@@ -9,6 +9,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css" />
+
+<!--
+  Meta Pixel — replace YOUR_PIXEL_ID once you have a Meta Business/Ads account.
+  Fires PageView here; script.js fires a "Lead" event on successful form submit.
+-->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'YOUR_PIXEL_ID');
+fbq('track', 'PageView');
+</script>
+
+<!-- Google Analytics (GA4) — replace G-XXXXXXXXXX once you have a GA4 property. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XXXXXXXXXX');
+</script>
 </head>
 <body>
 
@@ -48,6 +74,8 @@
     <div class="form-card">
       <h2>Claim Your Free Assessment</h2>
       <form id="lead-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <!-- Honeypot spam trap: hidden from real visitors, bots tend to fill every field. Formspree drops submissions where this is non-empty. -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
         <div class="form-row">
           <div class="field">
             <label for="firstName">First Name</label>
